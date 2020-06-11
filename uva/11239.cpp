@@ -1,0 +1,140 @@
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+ 
+// #include <bits/stdc++.h>
+#include <vector>
+#include <complex>
+#include <unordered_map>
+#include <unordered_set>
+#include <iostream>
+#include <random>
+#include <queue>
+#include <algorithm>
+#include <climits>
+#include <map>
+#include <set>
+#include <stack>
+#include <sstream>
+#include <cstring>
+#include <bitset>
+#include <deque>
+
+ 
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef complex<ld> cd;
+ 
+typedef pair<int, int> pi;
+typedef pair<ll,ll> pl;
+typedef pair<ld,ld> pd;
+ 
+typedef vector<int> vi;
+typedef vector<ld> vd;
+typedef vector<ll> vl;
+typedef vector<pi> vpi;
+typedef vector<pl> vpl;
+typedef vector<pd> vpd;
+typedef vector<cd> vcd;
+typedef vector<string> vs;
+typedef vector<vi> vvi;
+typedef vector<vl> vvl;
+
+
+#define FOR(i,a,b) for (int i=a; i<b; i++)
+#define F0R(i,a) for (int i=0; i<(a); i++)
+#define FORd(i,a,b) for (int i = b; i > a; i--)
+#define F0Rd(i,a) for (int i = a; i > -1; i--)
+ 
+#define sz(x) (int)(x).size()
+#define mp make_pair
+#define pb push_back
+#define pob pop_back
+#define f first
+#define s second
+#define lb lower_bound
+#define ub upper_bound
+#define all(x) x.begin(), x.end()
+#define ins insert
+#define que queue
+#define pa pair
+#define ex(m,i) m.find(i)!=m.end()
+#define nex(m,i) m.find(i)==m.end()
+
+
+#define uniq(x) x.resize(unique(all(x))-x.begin())
+
+ 
+// mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+ 
+const int MOD = 1000000007;
+const ll INF = 1e18;
+const int MX = 100001; //check the limits, dummy
+const double epsilon = 1e-12;
+const vvi ds = {
+    {-1,0},
+    {1,0},
+    {0,-1},
+    {0,1}
+};
+
+struct comp{
+    bool operator()(pa<int,string> p1, pa<int,string> p2) const{
+        if(p1.first!=p2.first) return p1.first > p2.first;
+        return p1.second < p2.second;
+    }
+};
+
+int main(){
+
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    
+    // freopen("in.txt", "r", stdin);
+    // freopen("out.txt", "w", stdout);
+    
+    string s1 = "";
+    getline(cin,s1);
+
+
+    while(s1!="0"){
+        if(s1=="1") getline(cin,s1);
+        if(s1=="0") break;
+        map<string,int> projects;
+        map<string,set<string>> students;
+
+        while(s1!="1"){
+
+            projects[s1] = 0;
+
+            string pname = s1;
+            while(getline(cin,s1)&&s1[0]>='a'&&s1[0]<'z'){
+                students[s1].insert(pname);
+            }
+
+        }
+
+        vector<pa<int,string>> ret;
+        for(auto i : students){
+            if(sz(i.second)==1){
+                projects[*i.second.begin()]++;
+            }
+        }
+
+        for(auto i : projects){
+            ret.pb(mp(i.second,i.first));
+        }
+
+        sort(all(ret),comp());
+
+        for(auto i : ret){
+            printf("%s %d\n",i.second.c_str(),i.first);
+        }
+
+    }
+
+    return 0;
+}
+
+
+
